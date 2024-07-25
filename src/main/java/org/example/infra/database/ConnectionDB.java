@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionDB {
   private static final String url = "jdbc:postgresql:java";
-  private static final  String user = "SYSDBA";
+  private static final  String user = "postgres";
   private static final  String password = "masterkey";
 
   public static Connection getConneciton() {

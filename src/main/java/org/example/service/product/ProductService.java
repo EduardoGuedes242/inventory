@@ -18,11 +18,10 @@ public class ProductService {
     )
     {
       while (resultUsers.next()) {
-        String identificadoUnico = resultUsers.getString("pro_codigo");
-        String descricaoProduto = resultUsers.getString("pro_codigo");
-        double estoque = resultUsers.getDouble("pro_estoque");
-        double preco = resultUsers.getDouble("pro_preco");
-        ;
+        String identificadoUnico = resultUsers.getString("id");
+        String descricaoProduto = resultUsers.getString("descricao");
+        double estoque = resultUsers.getDouble("quantidadeestoque");
+        double preco = resultUsers.getDouble("valor");
 
         products.add(new Product(identificadoUnico, descricaoProduto, estoque, preco));
       }
@@ -31,6 +30,5 @@ public class ProductService {
     }
     return products;
   }
-
 
 }
