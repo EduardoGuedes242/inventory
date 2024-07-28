@@ -8,29 +8,13 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
-  public static void main(String[] args) {
-    System.out.println("Iniciando criação do arquivo");
+  ProductService productService = new ProductService();
 
-    ProductService productService = new ProductService();
+  public void criandoArquivo() {
     File arquivo = new File("C:/projetos/arquivo.txt");
-
-
-    try {
-      Reader reader = Files.newBufferedReader(Paths.get("C:/projetos/arquivo.txt"));
-      CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
-
-      List<String[]> linhaCompleta = csvReader.readAll();
-      for (String[] linha : linhaCompleta) {
-        System.out.println("Lendo arquivos: " + linha[0]);
-      }
-    } catch (IOException e) {
-      System.out.println("Ocorreu o seguinte erro: " + e.getMessage());
-    }
-
-
-
     try {
       arquivo.createNewFile();
       FileWriter escritor = new FileWriter(arquivo);
@@ -54,6 +38,34 @@ public class Main {
     } catch (IOException e) {
       System.out.println("Ocorreu um erro ao gerar o arquivo");
       e.printStackTrace();
+    }
+  }
+
+
+  public static void main(String[] args) {
+    ProductService productService = new ProductService();
+    System.out.println("Iniciando o programa...");
+    Scanner scanner = new Scanner(System.in);
+    int opcao = scanner.nextInt();
+
+    if(opcao == 1) {
+      try {
+        Reader reader = Files.newBufferedReader(Paths.get("C:/projetos/arquivo.txt"));
+        CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
+
+        String str = "I love Java";
+        String[] words = str.split(" ");
+
+        List<String[]> linhaCompleta = csvReader.readAll();
+        for (String[] linha : linhaCompleta) {
+          String[] dadosProduto = linha[0].split(";");
+
+          productService.cadastrarProduto(dadosProduto[1], 0, 0);
+          //System.out.println("Dados " + dadosProduto[1]);
+        }
+      } catch (IOException e) {
+        System.out.println("Ocorreu o seguinte erro: " + e.getMessage());
+      }
     }
 
   }
