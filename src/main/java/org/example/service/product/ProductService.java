@@ -18,7 +18,6 @@ public class ProductService {
             VALUES
               (?, ?, ?)
             """;
-
     try(Connection conexao = ConnectionDB.getConneciton();
         PreparedStatement pstmt = conexao.prepareStatement(sqlInsert);)
     {

@@ -13,38 +13,12 @@ import java.util.Scanner;
 public class Main {
   ProductService productService = new ProductService();
 
-  public void criandoArquivo() {
-    File arquivo = new File("C:/projetos/arquivo.txt");
-    try {
-      arquivo.createNewFile();
-      FileWriter escritor = new FileWriter(arquivo);
-      BufferedWriter buffer = new BufferedWriter(escritor);
-
-      List<Product> listaProdutos =  productService.getAllProducts();
-
-
-
-      for(Product product : listaProdutos) {
-        System.out.println("Lendo produtos.....");
-        buffer.write(product.getIdentificadorProdudo());
-        buffer.write(";");
-        buffer.write(product.getDescricao());
-        buffer.newLine();
-      }
-
-      buffer.close();
-
-      System.out.print("Arquivo criado com sucesso!");
-    } catch (IOException e) {
-      System.out.println("Ocorreu um erro ao gerar o arquivo");
-      e.printStackTrace();
-    }
-  }
-
-
   public static void main(String[] args) {
     ProductService productService = new ProductService();
     System.out.println("Iniciando o programa...");
+    System.out.println("1 - Importar produtos");
+    System.out.println("2 - Exportar produtos");
+    System.out.println("3 - Cancelar");
     Scanner scanner = new Scanner(System.in);
     int opcao = scanner.nextInt();
 
@@ -66,6 +40,32 @@ public class Main {
       } catch (IOException e) {
         System.out.println("Ocorreu o seguinte erro: " + e.getMessage());
       }
+    } else if (opcao == 2) {
+      File arquivo = new File("C:/projetos/arquivo.txt");
+      try {
+        arquivo.createNewFile();
+        FileWriter escritor = new FileWriter(arquivo);
+        BufferedWriter buffer = new BufferedWriter(escritor);
+
+        List<Product> listaProdutos =  productService.getAllProducts();
+
+        for(Product product : listaProdutos) {
+          System.out.println("Lendo produtos.....");
+          buffer.write(product.getIdentificadorProdudo());
+          buffer.write(";");
+          buffer.write(product.getDescricao());
+          buffer.newLine();
+        }
+
+        buffer.close();
+
+        System.out.print("Arquivo criado com sucesso!");
+      } catch (IOException e) {
+        System.out.println("Ocorreu um erro ao gerar o arquivo");
+        e.printStackTrace();
+      }
+    } else {
+      System.out.println("Fechando o programa");
     }
 
   }
